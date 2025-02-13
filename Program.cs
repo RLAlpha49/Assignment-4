@@ -25,7 +25,17 @@ else
         while (!sr.EndOfStream)
         {
             string? line = sr.ReadLine();
-            Console.WriteLine(line);
+                        if (line is not null)
+            {
+                // character details are separated with comma(,)
+                string[] characterDetails = line.Split(',');
+                // 1st array element contains id
+                Ids.Add(UInt64.Parse(characterDetails[0]));
+                // 2nd array element contains character name
+                Names.Add(characterDetails[1]);
+                // 3rd array element contains character description
+                Descriptions.Add(characterDetails[2]);
+            }
         }
         sr.Close();
     }
