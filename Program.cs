@@ -84,21 +84,29 @@ else
                     string? Description = Console.ReadLine();
                     // input character species
                     Console.WriteLine("Enter species:");
-                    string? Species = Console.ReadLine();
+                    string? speciesInput = Console.ReadLine();
                     // input character first appearance
                     Console.WriteLine("Enter first appearance:");
-                    string? FirstAppearance = Console.ReadLine();
+                    string? firstAppearance = Console.ReadLine();
                     // input character year created
                     Console.WriteLine("Enter year created:");
-                    int? YearCreated = int.Parse(Console.ReadLine());
+                    string? yearInput = Console.ReadLine();
+                    int? yearCreated = null;
+                    if (int.TryParse(yearInput, out int tempYear))
+                    {
+                        yearCreated = tempYear;
+                    }
                     // create file from data
                     StreamWriter sw = new(file, true);
-                    sw.WriteLine($"{Id},{Name},{Description},{Species},{FirstAppearance},{YearCreated}");
+                    sw.WriteLine($"{Id},{Name},{Description},{speciesInput},{firstAppearance},{yearCreated}");
                     sw.Close();
                     // add new character details to Lists
                     Ids.Add(Id);
                     Names.Add(Name);
                     Descriptions.Add(Description);
+                    Species.Add(speciesInput);
+                    FirstAppearances.Add(firstAppearance);
+                    YearCreated.Add(yearCreated);
                     // log transaction
                     logger.Info($"Character id {Id} added");
                 }
