@@ -16,6 +16,24 @@ else
     List<UInt64> Ids = [];
     List<string> Names = [];
     List<string> Descriptions = [];
+
+    try
+    {
+        StreamReader sr = new(file);
+        // first line contains column headers
+        sr.ReadLine();
+        while (!sr.EndOfStream)
+        {
+            string? line = sr.ReadLine();
+            Console.WriteLine(line);
+        }
+        sr.Close();
+    }
+    catch (Exception ex)
+    {
+        logger.Error(ex.Message);
+    }
+
     string? choice;
     do
     {
