@@ -70,7 +70,10 @@ else
                 {
                     // generate id - use max value in Ids + 1
                     UInt64 Id = Ids.Max() + 1;
-                    Console.WriteLine($"{Id}, {Name}");
+                    // input character description
+                    Console.WriteLine("Enter description:");
+                    string? Description = Console.ReadLine();
+                    Console.WriteLine($"{Id}, {Name}, {Description}");
                 }
             }
             else
