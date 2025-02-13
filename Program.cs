@@ -13,7 +13,10 @@ if (!File.Exists(file))
 }
 else
 {
-        string? choice;
+    List<UInt64> Ids = [];
+    List<string> Names = [];
+    List<string> Descriptions = [];
+    string? choice;
     do
     {
         // display choices to user
