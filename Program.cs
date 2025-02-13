@@ -38,6 +38,12 @@ else
                 Names.Add(characterDetails[1]);
                 // 3rd array element contains character description
                 Descriptions.Add(characterDetails[2]);
+                // 4th array element contains character species
+                Species.Add(characterDetails[3]);
+                // 5th array element contains character first appearance
+                FirstAppearances.Add(characterDetails[4]);
+                // 6th array element contains character year created
+                YearCreated.Add(int.Parse(characterDetails[5]));
             }
         }
         sr.Close();
