@@ -130,6 +130,11 @@ else
                 Console.WriteLine();
             }
         }
+        else if (!string.IsNullOrEmpty(choice))
+        {
+            logger.Warn("Unexpected choice: {Choice}", choice);
+            Console.WriteLine("Invalid option. Please choose 1 or 2, or press Enter to quit.");
+        }
     } while (choice == "1" || choice == "2");
 }
 
