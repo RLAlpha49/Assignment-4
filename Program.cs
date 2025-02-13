@@ -107,6 +107,9 @@ else
                 Console.WriteLine($"Id: {Ids[i]}");
                 Console.WriteLine($"Name: {Names[i]}");
                 Console.WriteLine($"Description: {Descriptions[i]}");
+                Console.WriteLine($"Species: {Species[i]}");
+                Console.WriteLine($"First Appearance: {FirstAppearances[i]}");
+                Console.WriteLine($"Year Created: {YearCreated[i]}");
                 Console.WriteLine();
             }
         }
