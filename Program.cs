@@ -1,6 +1,6 @@
 ﻿using NLog;
-string path = Directory.GetCurrentDirectory() + "//nlog.config";
 
+string path = Directory.GetCurrentDirectory() + "//nlog.config";
 var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassLogger();
 
 logger.Info("Program started");
@@ -112,15 +112,14 @@ else
             }
             else if (choice == "2")
             {
-                for (int i = 0; i < Ids.Count; i++)
+                foreach (MarioCharacter character in characters)
                 {
-                    // display character details
-                    Console.WriteLine($"Id: {Ids[i]}");
-                    Console.WriteLine($"Name: {Names[i]}");
-                    Console.WriteLine($"Description: {Descriptions[i]}");
-                    Console.WriteLine($"Species: {Species[i]}");
-                    Console.WriteLine($"First Appearance: {FirstAppearances[i]}");
-                    Console.WriteLine($"Year Created: {YearCreated[i]}");
+                    Console.WriteLine($"Id: {character.Id}");
+                    Console.WriteLine($"Name: {character.Name}");
+                    Console.WriteLine($"Description: {character.Description}");
+                    Console.WriteLine($"Species: {character.Species}");
+                    Console.WriteLine($"First Appearance: {character.FirstAppearance}");
+                    Console.WriteLine($"Year Created: {character.YearCreated}");
                     Console.WriteLine();
                 }
             }
