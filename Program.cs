@@ -33,7 +33,7 @@ else
                 string? species = characterDetails[3];
                 string? firstAppearance = characterDetails[4];
                 int? yearCreated = int.Parse(characterDetails[5]);
-
+                
                 MarioCharacter character = new MarioCharacter(id, name, description, species, firstAppearance, yearCreated);
                 characters.Add(character);
             }
@@ -45,44 +45,41 @@ else
         logger.Error(ex.Message);
     }
 
-
     try
     {
         string? choice;
         do
         {
-            // display choices to user
             Console.WriteLine("1) Add Character");
             Console.WriteLine("2) Display All Characters");
             Console.WriteLine("Enter to quit");
-            // input selection
             choice = Console.ReadLine();
             logger.Info("User choice: {Choice}", choice);
+
             if (choice == "1")
             {
                 Console.WriteLine("Enter new character name: ");
-                string? Name = Console.ReadLine();
-                if (!string.IsNullOrEmpty(Name))
+                string? nameInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(nameInput))
                 {
-                    // check for duplicate name
-                    List<string> LowerCaseNames = Names.ConvertAll(n => n.ToLower());
-                    if (LowerCaseNames.Contains(Name.ToLower()))
+                    // Check for a duplicate name
+                    if (characters.Any(c => c.Name.ToLower() == nameInput.ToLower()))
                     {
-                        logger.Info($"Duplicate name {Name}");
+                        logger.Info($"Duplicate name {nameInput}");
                     }
                     else
                     {
                         // generate id - use max value in Ids + 1
-                        UInt64 Id = Ids.Max() + 1;
+                        ulong newId = characters.Any() ? characters.Max(c => c.Id) + 1 : 1;
                         // input character description
                         Console.WriteLine("Enter description:");
-                        string? Description = Console.ReadLine();
+                        string? descriptionInput = Console.ReadLine();
                         // input character species
                         Console.WriteLine("Enter species:");
                         string? speciesInput = Console.ReadLine();
                         // input character first appearance
                         Console.WriteLine("Enter first appearance:");
-                        string? firstAppearance = Console.ReadLine();
+                        string? firstAppearanceInput = Console.ReadLine();
                         // input character year created
                         Console.WriteLine("Enter year created:");
                         string? yearInput = Console.ReadLine();
@@ -91,19 +88,21 @@ else
                         {
                             yearCreated = tempYear;
                         }
-                        // create file from data
-                        StreamWriter sw = new(file, true);
-                        sw.WriteLine($"{Id},{Name},{Description},{speciesInput},{firstAppearance},{yearCreated}");
-                        sw.Close();
-                        // add new character details to Lists
-                        Ids.Add(Id);
-                        Names.Add(Name);
-                        Descriptions.Add(Description);
-                        Species.Add(speciesInput);
-                        FirstAppearances.Add(firstAppearance);
-                        YearCreated.Add(yearCreated);
-                        // log transaction
-                        logger.Info($"Character id {Id} added");
+
+                        MarioCharacter newCharacter = new MarioCharacter(newId, nameInput, descriptionInput, speciesInput, firstAppearanceInput, yearCreated);
+                        try
+                        {
+                             // create file from data
+                            StreamWriter sw = new(file, true);
+                            sw.WriteLine($"{newId},{nameInput},{descriptionInput},{speciesInput},{firstAppearanceInput},{yearCreated}");
+                            sw.Close();
+                            characters.Add(newCharacter);
+                            logger.Info($"Character id {newId} added");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("Failed to add new character: {Error}", ex.Message);
+                        }
                     }
                 }
                 else
